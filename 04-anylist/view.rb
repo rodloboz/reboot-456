@@ -7,7 +7,7 @@ def display_menu
   puts "4. (M) Mark"
   puts "5. (I) Import"
   puts "9. (Q) Quit"
-  new_line
+  puts_new_line
 end
 
 def display_items
@@ -16,7 +16,7 @@ def display_items
     checked = item[:completed] ? "X" : " "
     puts "#{index + 1} - [#{checked}] #{item[:name]}"
   end
-  new_line
+  puts_new_line
 end
 
 def display_articles(articles)
@@ -24,7 +24,7 @@ def display_articles(articles)
   articles.each_with_index do |article, index|
     puts "#{index + 1} - #{article}"
   end
-  new_line
+  puts_new_line
 end
 
 def ask_for_action
@@ -44,14 +44,14 @@ end
 
 def puts_invalid_item(index)
   puts "Can't find item ##{index}"
-  new_line
+  puts_new_line
 end
 
-def new_lines(lines = 1)
+def puts_new_lines(lines = 1)
   lines.times { new_line }
 end
 
-def new_line
+def puts_new_line
   puts "\n"
 end
 

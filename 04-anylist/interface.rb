@@ -56,7 +56,7 @@ loop do
     item = gets.chomp
     next if item.empty?
     add_item(item)
-    new_line
+    puts_new_line
     display_items
   when /d(elete)?|3/i
     clear_screen
@@ -66,7 +66,7 @@ loop do
     next if index.empty?
     if valid_index?(index)
       delete_item(index.to_i - 1)
-      new_line
+      puts_new_line
       display_items
     else
       puts_invalid_item(index)
@@ -79,7 +79,7 @@ loop do
     next if index.empty?
     if valid_index?(index)
       mark_item(index.to_i - 1)
-      new_line
+      puts_new_line
       display_items
     else
       puts_invalid_item(index)
@@ -90,14 +90,15 @@ loop do
     item = gets.chomp
     articles = fetch_from_alcampo(item)
     next if articles.empty?
-    new_line
+    puts_new_line
     display_articles(articles)
     ask_for_index(:import, articles.length)
     index = gets.chomp.to_i - 1
     add_item(articles[index])
-    new_line
+    puts_new_line
     display_items
   when /q(uit)?|9/i
+    puts_new_line
     break
   else
     puts "Invalid option"
