@@ -1,5 +1,6 @@
 require_relative "welcome"
 require_relative "horses"
+require_relative "player"
 
 # Welcome player
 # Ask player's name
@@ -50,6 +51,11 @@ HORSES = [
 # MAIN PROGRAM BEING HERE
 welcome
 
+# Create player
+name = ask_for("name")
+player = create_player(name)
+
+
 loop do
   puts "Here's the roster for the race:"
   display_horses(HORSES)
@@ -57,19 +63,34 @@ loop do
   puts "Pick a horse [1-#{HORSES.size}]:"
   print "> "
   # Convert to integer and to the real index
-  player_choice = gets.chomp.to_i - 1
+  horse_index = gets.chomp.to_i - 1
+
+  bet = ask_for("bet").to_i
+  while bet > player[:balance] || bet < 10
+    puts "Invalid bet."
+    puts "Pick between 10€ and #{player[:balance]}€"
+    bet = gets.chomp.to_i
+  end
 
   race_results = run_race
   winner = race_results.first
-  player_horse = HORSES[player_choice]
+  player_horse = HORSES[horse_index]
 
   puts "The winning horse was #{winner}!"
   puts "You picked #{player_horse}."
+
   if winner == player_horse
     puts "You win!"
+    player[:balance] = player[:balance] * 2
   else
     puts "You lost"
+    player[:balance] = player[:balance] - bet
   end
+
+  puts "You have #{player[:balance]}€."
+
+  break if player[:balance] < 10
+
 
   puts "\n"
   puts "Do you want to continue playing? (Y)es / (N)o"
@@ -83,6 +104,7 @@ loop do
   break if choice.match?(/n(o)?/i)
 end
 
+puts "You finished the game with #{player[:balance]}€"
 puts "Game over! Goodbye..."
 
 
