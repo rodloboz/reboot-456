@@ -25,13 +25,36 @@
 # check if item is completed
 # display the item  (puts)
 
+# ADD
+# ask the user which item they want to add
+# store the name the user gives
+# create an item with the value of false for completed
+# add the new item to the items list
+
+# DELETE
+# display all the items to the user (sees index + 1)
+# ask the user which item they want to delete (with index)
+# convert index to real index (index - 1)
+# store the user answer (index)
+# Delete item from list (using the index)
+
+# MARK
+# display all the items to the user (sees index + 1)
+# ask the user which item they want to mark (with index)
+# convert index to real index (index - 1)
+# store the user answer (index)
+# toggle/mark item complete attributed
+# (if it's true => false, if it's false => true)
+
+require_relative "view"
+require_relative "welcome"
+
+require "byebug"
+
 ITEMS = [
   { name: "bananas", completed: false },
   { name: "socks", completed: true }
 ]
-
-require_relative "view"
-require_relative "welcome"
 
 puts_welcome
 
@@ -42,7 +65,9 @@ loop do
 
   case action
   when /^l(ist)?|1$/i
-    puts "Listing items..."
+    clear_screen
+    display_items
+    puts "\n"
   when /^a(dd)?|2$/i
     puts "Adding item..."
   when /^d(elete)?|3$/i

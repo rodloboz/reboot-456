@@ -1,5 +1,5 @@
 def puts_welcome
-  system "clear"
+  clear_screen
   puts "##################################"
   puts "##                              ##"
   puts "##           ANYLIST            ##"
