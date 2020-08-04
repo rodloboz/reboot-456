@@ -5,6 +5,7 @@ def display_menu
   puts "2. (A) Add"
   puts "3. (D) Delete"
   puts "4. (M) Mark"
+  puts "5. (I) Import"
   puts "9. (Q) Quit"
   puts "\n"
 end
@@ -14,6 +15,13 @@ def display_items
   ITEMS.each_with_index do |item, index|
     marked = item[:completed] ? "X" : " "
     puts "#{index + 1} - [#{marked}] #{item[:name]}"
+  end
+end
+
+def display_results(results)
+  puts "Here are the results found on Alcampo:"
+  results.each_with_index do |result, index|
+    puts "#{index + 1} - #{result}"
   end
 end
 

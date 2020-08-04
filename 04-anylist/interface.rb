@@ -55,15 +55,13 @@
 # create item and add it to the ITEMS list
 
 require_relative "items"
+require_relative "services"
 require_relative "view"
 require_relative "welcome"
 
 require "byebug"
 
-ITEMS = [
-  { name: "bananas", completed: false },
-  { name: "socks", completed: true }
-]
+ITEMS = load_csv
 
 puts_welcome
 
@@ -108,8 +106,19 @@ loop do
     else
       puts_invalid_index(index)
     end
+  when /^i(mport)?|5$/i
+    ask_for_item(:import)
+    item = gets.chomp
+    results = fetch_from_alcampo(item)
+    display_results(results)
+    ask_for_item(:import)
+    index = gets.chomp.to_i - 1
+    add_item(results[index])
+    display_items
   when /^q(uit)?|9$/i
     break
+  else
+    puts "Invalid option."
   end
 end
 
