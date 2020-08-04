@@ -46,6 +46,15 @@
 # toggle/mark item complete attributed
 # (if it's true => false, if it's false => true)
 
+# IMPORT
+# Ask the user which item they want to import/search
+# store user answer
+# visit Alcampo and scrape a list of items with that name
+# display the list of found items to the user
+# ask the user which of those items they want to import
+# create item and add it to the ITEMS list
+
+require_relative "items"
 require_relative "view"
 require_relative "welcome"
 
@@ -59,6 +68,7 @@ ITEMS = [
 puts_welcome
 
 loop do
+  puts_new_line
   display_menu
   ask_for_action
   action = gets.chomp
@@ -67,13 +77,37 @@ loop do
   when /^l(ist)?|1$/i
     clear_screen
     display_items
-    puts "\n"
   when /^a(dd)?|2$/i
-    puts "Adding item..."
+    clear_screen
+    ask_for_item(:add)
+    item = gets.chomp
+    next if item.empty?
+    add_item(item)
+    display_items
   when /^d(elete)?|3$/i
-    puts "Deleting item..."
+    clear_screen
+    display_items
+    puts_new_line
+    ask_for_item(:delete)
+    index = gets.chomp
+    if valid_index?(index)
+      delete_item(index.to_i - 1)
+      display_items
+    else
+      puts_invalid_index(index)
+    end
   when /^m(ark)?|4$/i
-    puts "Marking item..."
+    clear_screen
+    display_items
+    puts_new_line
+    ask_for_item(:mark)
+    index = gets.chomp
+    if valid_index?(index)
+      mark_item(index.to_i - 1)
+      display_items
+    else
+      puts_invalid_index(index)
+    end
   when /^q(uit)?|9$/i
     break
   end

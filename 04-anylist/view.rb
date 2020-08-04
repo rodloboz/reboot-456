@@ -22,6 +22,22 @@ def ask_for_action
   print "> "
 end
 
+def ask_for_item(action)
+  puts "Which item do you want to #{action}?"
+  print "> "
+end
+
+def puts_invalid_index(index)
+  puts "Could not find item with #{index}"
+end
+
 def clear_screen
   system "clear"
 end
+
+def puts_new_line
+  puts "\n"
+end
+
+
+
